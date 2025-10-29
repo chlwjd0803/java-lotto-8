@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.TreeSet;
 
 public class Application {
+    private static final String NUMBER_LIST_REGEX = "^\\d+(,\\d+)*$";
 
     // 로또 구입금액 입력
     private Integer retNumOfLotto(){
@@ -24,17 +25,32 @@ public class Application {
 
     // 당첨 번호 입력
     private List<Integer> retWinningLotto(){
-        System.out.println("당첨 번호를 입력해 주세요.");
-        String input = Console.readLine();
+        while(true){
+            System.out.println("당첨 번호를 입력해 주세요.");
+            String input = Console.readLine();
 
-        String[] inputSplit = input.split(",");
-        List<Integer> winningNumbers = new ArrayList<>();
+            try{
+                if(!input.matches(NUMBER_LIST_REGEX))
+                    throw new IllegalArgumentException("입력 형태가 올바르지 않음");
+            } catch (IllegalArgumentException e){
+                System.out.println("[ERROR] 입력 형태가 올바르지 않습니다. 쉼표 구분자를 구분하여 정수를 입력해주세요.");
+                continue;
+            }
 
-        for(String number : inputSplit){
-            winningNumbers.add(Integer.parseInt(number));
+            String[] inputSplit = input.split(",");
+            List<Integer> winningNumbers = new ArrayList<>();
+
+            try{
+                for(String number : inputSplit){
+                    winningNumbers.add(Integer.parseInt(number));
+                }
+            } catch (NumberFormatException e){
+                System.out.println("[ERROR] 입력 로또번호가 올바른 정수형태가 아닙니다.");
+                continue;
+            }
+
+            return winningNumbers;
         }
-
-        return winningNumbers;
     }
 
     // 보너스 번호 입력
