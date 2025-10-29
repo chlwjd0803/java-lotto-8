@@ -10,6 +10,13 @@ import camp.nextstep.edu.missionutils.Console;
 
 public class Application {
 
+    // 로또 구입금액 입력
+    private Integer retNumOfLotto(){
+        System.out.println("구입금액을 입력해 주세요.");
+        Integer money = Integer.parseInt(Console.readLine());
+        return money / 1000;
+    }
+    
     // 로또번호 랜덤생성 매 회
     private Lotto makeLotto(){
         // 하나의 로또 번호 저장
@@ -45,17 +52,14 @@ public class Application {
         }
     }
 
-
     public void run(){
-        System.out.println("구입금액을 입력해 주세요.");
-        Integer money = Integer.parseInt(Console.readLine());
-
         // 구입한 로또의 개수
-        Integer numOfLotto = money / 1000; // 로또의 개수만큼 변경
+        Integer numOfLotto = retNumOfLotto();
 
         // 로또 생성
         List<Lotto> lottos = makeLottos(numOfLotto);
 
+        // 로또들 출력
         printLottos(numOfLotto, lottos);
 
 
