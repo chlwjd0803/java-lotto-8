@@ -16,7 +16,7 @@ public class Application {
         Integer money = Integer.parseInt(Console.readLine());
         return money / 1000;
     }
-    
+
     // 로또번호 랜덤생성 매 회
     private Lotto makeLotto(){
         // 하나의 로또 번호 저장
@@ -31,7 +31,6 @@ public class Application {
         Collections.sort(numbers); // 오름차순으로 정렬
         return new Lotto(numbers);
     }
-
 
     // 로또번호 랜덤생성 전체
     private List<Lotto> makeLottos(Integer numOfLotto){
@@ -67,6 +66,12 @@ public class Application {
         return winningNumbers;
     }
 
+    // 보너스 번호 입력
+    private Integer retBonusNumber(){
+        System.out.println("보너스 번호를 입력해 주세요.");
+        return Integer.parseInt(Console.readLine());
+    }
+
     // 실행
     public void run(){
         // 구입한 로또의 개수
@@ -80,6 +85,9 @@ public class Application {
 
         // 당첨번호 입력
         List<Integer> winningLotto = retWinningLotto();
+
+        // 보너스 번호 입력
+        Integer bonus = retBonusNumber();
 
 
 
