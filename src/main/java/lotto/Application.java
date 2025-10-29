@@ -52,6 +52,22 @@ public class Application {
         }
     }
 
+    // 당첨 번호 입력
+    private List<Integer> retWinningLotto(){
+        System.out.println("당첨 번호를 입력해 주세요.");
+        String input = Console.readLine();
+
+        String[] inputSplit = input.split(",");
+        List<Integer> winningNumbers = new ArrayList<>();
+
+        for(String number : inputSplit){
+            winningNumbers.add(Integer.parseInt(number));
+        }
+
+        return winningNumbers;
+    }
+
+    // 실행
     public void run(){
         // 구입한 로또의 개수
         Integer numOfLotto = retNumOfLotto();
@@ -61,6 +77,9 @@ public class Application {
 
         // 로또들 출력
         printLottos(numOfLotto, lottos);
+
+        // 당첨번호 입력
+        List<Integer> winningLotto = retWinningLotto();
 
 
 
