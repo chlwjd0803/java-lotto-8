@@ -4,6 +4,7 @@ package lotto;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TreeSet;
 
 public enum Reward {
     // 6개 번호 일치 / 2,000,000,000원
@@ -55,6 +56,39 @@ public enum Reward {
         }
         return rewardMap;
     }
+
+    // 당첨현황 저장
+    public static HashMap<Reward, Integer> status(List<Lotto> lottos, TreeSet<Integer> winningLotto, Integer bonus){
+        Integer total = 0;
+        HashMap<Reward, Integer> rewardMap = getRewardMap();
+
+        for(Lotto lotto : lottos){
+            TreeSet<Integer> lottoSet = new TreeSet<>(lotto.getNumbers());
+            TreeSet<Integer> temp = new TreeSet<>(lottoSet);
+            temp.retainAll(winningLotto);
+            Reward reward = getReward(temp.size(), lottoSet.contains(bonus));
+            rewardMap.put(reward, rewardMap.get(reward) + 1);
+        }
+        return rewardMap;
+    }
+
+    // 당첨현황 출력
+    public static void printStatus(HashMap<Reward, Integer> rewardMap){
+        List<Reward> rewards = getReverseRewardWithoutMiss();
+        System.out.println("당첨 통계");
+        System.out.println("---");
+        for(Reward reward : rewards){
+            String formattedMoney = String.format("%,d", reward.getRewardMoney());
+
+            System.out.print(reward.getMatchCount() + "개 일치");
+            if(reward.getBonusMatch())
+                System.out.print(", 보너스 볼 일치");
+            System.out.println(" (" + formattedMoney + "원) - " + rewardMap.get(reward) + "개");
+        }
+    }
+
+
+
 
     public static List<Reward> getReverseRewardWithoutMiss(){
         return Arrays.asList(FIFTH, FOURTH, THIRD, SECOND, FIRST);
