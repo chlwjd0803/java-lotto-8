@@ -36,16 +36,27 @@ public class Application {
         return lottos;
     }
 
+    // 만든 로또들 출력
+    private void printLottos(Integer numOfLotto, List<Lotto> lottos){
+        System.out.println(numOfLotto + "개를 구매했습니다.");
+
+        for(Lotto lotto : lottos){
+            System.out.println(lotto.getNumbers().toString());
+        }
+    }
+
 
     public void run(){
         System.out.println("구입금액을 입력해 주세요.");
         Integer money = Integer.parseInt(Console.readLine());
+
         // 구입한 로또의 개수
         Integer numOfLotto = money / 1000; // 로또의 개수만큼 변경
 
         // 로또 생성
         List<Lotto> lottos = makeLottos(numOfLotto);
 
+        printLottos(numOfLotto, lottos);
 
 
 
