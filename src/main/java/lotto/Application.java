@@ -11,9 +11,15 @@ public class Application {
 
     // 로또 구입금액 입력
     private Integer retNumOfLotto(){
-        System.out.println("구입금액을 입력해 주세요.");
-        Integer money = Integer.parseInt(Console.readLine());
-        return money / 1000;
+        while(true){
+            System.out.println("구입금액을 입력해 주세요.");
+            try{
+                Integer money = Integer.parseInt(Console.readLine());
+                return money / 1000;
+            } catch (NumberFormatException e){
+                System.out.println("[ERROR] 구입금액이 올바른 정수형태가 아닙니다.");
+            }
+        }
     }
 
     // 당첨 번호 입력
