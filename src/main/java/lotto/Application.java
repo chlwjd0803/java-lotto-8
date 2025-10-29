@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.*;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import camp.nextstep.edu.missionutils.Console;
@@ -20,7 +21,7 @@ public class Application {
     // 로또번호 랜덤생성 매 회
     private Lotto makeLotto(){
         // 하나의 로또 번호 저장
-        HashSet<Integer> numberSet = new HashSet<>(); // 매 회 초기화
+        Set<Integer> numberSet = new TreeSet<>(); // 매 회 초기화
 
         // 집합은 중복을 허용하지 않으므로 6개까지 뽑으면 된다.
         while(numberSet.size() < 6){
@@ -28,7 +29,6 @@ public class Application {
         }
 
         List<Integer> numbers = new ArrayList<>(numberSet); // 리스트로 변환
-        Collections.sort(numbers); // 오름차순으로 정렬
         return new Lotto(numbers);
     }
 
