@@ -104,6 +104,16 @@ public class Application {
         }
     }
 
+    // 총합 구하기
+    private Integer totalRewardMoney(HashMap<Reward, Integer> rewardMap){
+        Integer total = 0;
+        for(Reward reward : Reward.values()){
+            // 총합에 보상금 * 당첨횟수를 더함
+            total += reward.getRewardMoney() * rewardMap.get(reward);
+        }
+        return total;
+    }
+
     // 실행
     public void run(){
         // 구입한 로또의 개수
@@ -119,6 +129,9 @@ public class Application {
         // 각 당첨 통계 맵
         HashMap<Reward, Integer> rewardMap = status(lottos, new TreeSet<>(winningLotto), bonus);
         printStatus(rewardMap);
+        // 상금 총합
+        Integer total = totalRewardMoney(rewardMap);
+        System.out.println("총 수익률은 " + (total / (numOfLotto * 1000) * 100) + "%입니다.");
     }
 
     public static void main(String[] args) {
