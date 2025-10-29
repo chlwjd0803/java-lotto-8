@@ -1,13 +1,15 @@
 package lotto;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.*;
+
 
 import camp.nextstep.edu.missionutils.Randoms;
 import camp.nextstep.edu.missionutils.Console;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Application {
 
@@ -86,6 +88,22 @@ public class Application {
         }
         return rewardMap;
     }
+
+    // 당첨현황 출력
+    private void printStatus(HashMap<Reward, Integer> rewardMap){
+        List<Reward> rewards = Reward.getReverseRewardWithoutMiss();
+        System.out.println("당첨 통계");
+        System.out.println("---");
+        for(Reward reward : rewards){
+            String formattedMoney = String.format("%,d", reward.getRewardMoney());
+
+            System.out.print(reward.getMatchCount() + "개 일치");
+            if(reward.getBonusMatch())
+                System.out.print(", 보너스 볼 일치");
+            System.out.println(" (" + formattedMoney + "원) - " + rewardMap.get(reward) + "개");
+        }
+    }
+
     // 실행
     public void run(){
         // 구입한 로또의 개수
@@ -100,6 +118,7 @@ public class Application {
         Integer bonus = retBonusNumber();
         // 각 당첨 통계 맵
         HashMap<Reward, Integer> rewardMap = status(lottos, new TreeSet<>(winningLotto), bonus);
+        printStatus(rewardMap);
     }
 
     public static void main(String[] args) {
