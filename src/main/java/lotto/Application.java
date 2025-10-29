@@ -72,25 +72,34 @@ public class Application {
         return Integer.parseInt(Console.readLine());
     }
 
+    // 당첨현황 저장
+    private HashMap<Reward, Integer> status(List<Lotto> lottos, TreeSet<Integer> winningLotto, Integer bonus){
+        Integer total = 0;
+        HashMap<Reward, Integer> rewardMap = Reward.getRewardMap();
+
+        for(Lotto lotto : lottos){
+            TreeSet<Integer> lottoSet = new TreeSet<>(lotto.getNumbers());
+            TreeSet<Integer> temp = new TreeSet<>(lottoSet);
+            temp.retainAll(winningLotto);
+            Reward reward = Reward.getReward(temp.size(), lottoSet.contains(bonus));
+            rewardMap.put(reward, rewardMap.get(reward) + 1);
+        }
+        return rewardMap;
+    }
     // 실행
     public void run(){
         // 구입한 로또의 개수
         Integer numOfLotto = retNumOfLotto();
-
         // 로또 생성
         List<Lotto> lottos = makeLottos(numOfLotto);
-
         // 로또들 출력
         printLottos(numOfLotto, lottos);
-
         // 당첨번호 입력
         List<Integer> winningLotto = retWinningLotto();
-
         // 보너스 번호 입력
         Integer bonus = retBonusNumber();
-
-
-
+        // 각 당첨 통계 맵
+        HashMap<Reward, Integer> rewardMap = status(lottos, new TreeSet<>(winningLotto), bonus);
     }
 
     public static void main(String[] args) {
