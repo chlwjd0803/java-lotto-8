@@ -3,6 +3,7 @@ package lotto;
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,12 +15,19 @@ public class Lotto {
 
     public Lotto(List<Integer> numbers) {
         validate(numbers);
-        this.numbers = numbers;
+        List<Integer> sortedNumbers = new ArrayList<>(numbers);
+        Collections.sort(sortedNumbers);
+        this.numbers = sortedNumbers;
     }
 
     private void validate(List<Integer> numbers) {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
+        }
+        for (Integer number : numbers) {
+            if (number < 1 || number > 45) {
+                throw new IllegalArgumentException("[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.");
+            }
         }
         HashSet<Integer> numberSet = new HashSet<>(numbers);
         if(numberSet.size() != 6){
@@ -31,17 +39,8 @@ public class Lotto {
         return numbers;
     }
 
-    // 로또번호 랜덤생성 매 회
     public static Lotto makeLotto() {
-        // 하나의 로또 번호 저장
-        Set<Integer> numberSet = new TreeSet<>(); // 매 회 초기화
-
-        // 집합은 중복을 허용하지 않으므로 6개까지 뽑으면 된다.
-        while (numberSet.size() < 6) {
-            numberSet.add(Randoms.pickNumberInRange(1, 45));
-        }
-
-        List<Integer> numbers = new ArrayList<>(numberSet); // 리스트로 변환
+        List<Integer> numbers = Randoms.pickUniqueNumbersInRange(1, 45, 6);
         return new Lotto(numbers);
     }
 
