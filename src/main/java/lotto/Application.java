@@ -16,16 +16,13 @@ public class Application {
             System.out.println("구입금액을 입력해 주세요.");
             try{
                 Integer money = Integer.parseInt(Console.readLine());
-                try{
-                    if(money % 1000 != 0)
-                        throw new IllegalArgumentException("1,000원으로 나누어 떨어지지 않음");
-                } catch (IllegalArgumentException e){
-                    System.out.println("[ERROR] 구입 후 잔액이 남도록 입력할 수 없습니다.");
-                    continue;
-                }
+                if(money % 1000 != 0)
+                    throw new IllegalArgumentException("1,000원으로 나누어 떨어지지 않음");
                 return money / 1000;
             } catch (NumberFormatException e){
                 System.out.println("[ERROR] 구입금액이 올바른 정수형태가 아닙니다.");
+            } catch (IllegalArgumentException e){
+                System.out.println("[ERROR] 구입 후 잔액이 남도록 입력할 수 없습니다.");
             }
         }
     }
