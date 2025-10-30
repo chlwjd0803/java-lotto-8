@@ -19,7 +19,7 @@ public class Application {
     // 당첨 번호 입력
     private List<Integer> retWinningLotto(){
         while(true){
-            System.out.println("당첨 번호를 입력해 주세요.");
+            System.out.println("\n당첨 번호를 입력해 주세요.");
             String input = Console.readLine();
             List<Integer> winningNumbers = new ArrayList<>();
 
@@ -36,7 +36,7 @@ public class Application {
     // 보너스 번호 입력
     private Integer retBonusNumber(){
         while(true){
-            System.out.println("보너스 번호를 입력해 주세요.");
+            System.out.println("\n보너스 번호를 입력해 주세요.");
             Integer bonusNumber = Validator.insertAndCheckBonusNumber(Console.readLine());
             if(bonusNumber == null) continue;
             return bonusNumber;
@@ -70,7 +70,8 @@ public class Application {
         Reward.printStatus(rewardMap);
         // 상금 총합
         Integer total = totalRewardMoney(rewardMap);
-        System.out.println("총 수익률은 " + (total / (numOfLotto * 1000) * 100) + "%입니다.");
+        double profitRate = (double) total / (numOfLotto * 1000) * 100;
+        System.out.println("총 수익률은 " + String.format("%.1f", profitRate) + "%입니다.");
     }
 
     public static void main(String[] args) {

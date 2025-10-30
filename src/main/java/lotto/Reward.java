@@ -75,7 +75,7 @@ public enum Reward {
     // 당첨현황 출력
     public static void printStatus(HashMap<Reward, Integer> rewardMap){
         List<Reward> rewards = getReverseRewardWithoutMiss();
-        System.out.println("당첨 통계");
+        System.out.println("\n당첨 통계");
         System.out.println("---");
         for(Reward reward : rewards){
             String formattedMoney = String.format("%,d", reward.getRewardMoney());

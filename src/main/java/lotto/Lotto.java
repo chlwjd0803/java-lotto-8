@@ -3,9 +3,11 @@ package lotto;
 import camp.nextstep.edu.missionutils.Randoms;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
 
 public class Lotto {
     private final List<Integer> numbers;
@@ -18,6 +20,10 @@ public class Lotto {
     private void validate(List<Integer> numbers) {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
+        }
+        HashSet<Integer> numberSet = new HashSet<>(numbers);
+        if(numberSet.size() != 6){
+            throw new IllegalArgumentException("[ERROR] 중복된 번호를 입력할 수 없습니다.");
         }
     }
 
@@ -51,7 +57,7 @@ public class Lotto {
 
     // 만든 로또들 출력
     public static void printLottos(Integer numOfLotto, List<Lotto> lottos) {
-        System.out.println(numOfLotto + "개를 구매했습니다.");
+        System.out.println("\n" + numOfLotto + "개를 구매했습니다.");
 
         for (Lotto lotto : lottos) {
             System.out.println(lotto.getNumbers().toString());
