@@ -28,6 +28,25 @@
 
 ## 예외 처리 및 유효성 검증
 
+사용자 입력값에 대한 예외 처리 및 유효성 검증은 다음과 같이 이루어집니다. 잘못된 값을 입력할 경우, 해당 에러 메시지를 출력하고 다시 입력을 요청합니다.
+
+| 예외 상황 | 처리 클래스 및 메서드 | 에러 메시지 |
+| :--- | :--- | :--- |
+| **로또 구입 금액** | | |
+| 숫자가 아닌 값을 입력한 경우 | `Validator.getMoneyAndcheckMoneyFormat` | `[ERROR] 구입금액이 올바른 정수형태가 아닙니다.` |
+| 1,000원으로 나누어 떨어지지 않는 경우 | `Validator.getMoneyAndcheckMoneyFormat` | `[ERROR] 구입 후 잔액이 남도록 입력할 수 없습니다.` |
+| **당첨 번호** | | |
+| 쉼표로 구분되지 않은 경우 | `Validator.checkLottoInputFormat` | `[ERROR] 입력 형태가 올바르지 않습니다. 쉼표 구분자를 구분하여 정수를 입력해주세요.` |
+| 숫자가 아닌 값을 포함한 경우 | `Validator.insertAndCheckWinningNumbers` | `[ERROR] 입력 로또번호가 올바른 정수형태가 아닙니다.` |
+| 번호가 6개가 아닌 경우 | `Validator.checkWinningNumbersIsSix` | `[ERROR] 로또 번호는 6개여야 합니다.` |
+| 번호가 1~45 범위를 벗어난 경우 | `Validator.checkWinningNumbersInRange` | `[ERROR] 번호의 범위인 1~45를 넘어갈 수 없습니다.` |
+| 중복된 번호가 있는 경우 | `Validator.checkWinningNumbersIsUnique` | `[ERROR] 중복된 번호를 입력할 수 없습니다.` |
+| **보너스 번호** | | |
+| 숫자가 아닌 값을 입력한 경우 | `Validator.insertAndCheckBonusNumber` | `[ERROR] 입력한 보너스 번호가 올바른 정수형태가 아닙니다.` |
+| **로또 생성** | | |
+| 로또 번호가 6개가 아닌 경우 | `Lotto.validate` | `[ERROR] 로또 번호는 6개여야 합니다.` |
+| 로또 번호가 1~45 범위를 벗어난 경우 | `Lotto.validate` | `[ERROR] 로또 번호는 1부터 45 사이의 숫자여야 합니다.` |
+| 중복된 로또 번호가 있는 경우 | `Lotto.validate` | `[ERROR] 중복된 번호를 입력할 수 없습니다.` |
 
 ## 커밋 메시지 컨벤션
 
