@@ -62,8 +62,14 @@ public class Application {
 
     // 보너스 번호 입력
     private Integer retBonusNumber(){
-        System.out.println("보너스 번호를 입력해 주세요.");
-        return Integer.parseInt(Console.readLine());
+        while(true){
+            try{
+                System.out.println("보너스 번호를 입력해 주세요.");
+                return Integer.parseInt(Console.readLine());
+            } catch (NumberFormatException e){
+                System.out.println("[ERROR] 입력한 보너스 번호가 올바른 정수형태가 아닙니다.");
+            }
+        }
     }
 
     // 총합 구하기
