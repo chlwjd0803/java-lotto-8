@@ -49,7 +49,14 @@ public class Application {
                 continue;
             }
 
-            return winningNumbers;
+            try{
+                if(winningNumbers.size() != 6)
+                    throw new IllegalArgumentException("로또번호 6개 불일치");
+                return winningNumbers;
+            } catch (IllegalArgumentException e){
+                System.out.println("[ERROR] 로또 번호의 개수가 6개가 아닙니다.");
+            }
+
         }
     }
 
