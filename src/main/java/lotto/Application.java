@@ -11,7 +11,7 @@ public class Application {
         while (true) {
             System.out.println("구입금액을 입력해 주세요.");
             Integer money = Validator.getMoneyAndcheckMoneyFormat(Console.readLine());
-            if (money == null || !Validator.checkMoneyRemain(money)) continue;
+            if (money == null) continue;
             return money;
         }
     }

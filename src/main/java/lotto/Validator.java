@@ -6,27 +6,21 @@ import java.util.List;
 public class Validator {
     private static final String NUMBER_LIST_REGEX = "^\\d+(,\\d+)*$";
 
+    // 구입금액 입력 예외
     public static Integer getMoneyAndcheckMoneyFormat(String input){
         try{
             Integer money = Integer.parseInt(input);
-            return money;
+            if(money % 1000 != 0)
+                throw new IllegalArgumentException("1,000원으로 나누어 떨어지지 않음");
+            return money/1000;
         } catch (NumberFormatException e){
             System.out.println("[ERROR] 구입금액이 올바른 정수형태가 아닙니다.");
             return null;
-        }
-    }
-
-    public static Boolean checkMoneyRemain(Integer money){
-        try{
-            if(money % 1000 != 0)
-                throw new IllegalArgumentException("1,000원으로 나누어 떨어지지 않음");
-            return true;
-        } catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e){
             System.out.println("[ERROR] 구입 후 잔액이 남도록 입력할 수 없습니다.");
-            return false;
+            return null;
         }
     }
-
 
     // 정규식을 이용하여 쉼표 구분자로 숫자를 정리하였는지
     public static Boolean checkLottoInputFormat(String input){
