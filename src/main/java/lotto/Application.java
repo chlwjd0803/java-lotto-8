@@ -22,7 +22,6 @@ public class Application {
             System.out.println("\n당첨 번호를 입력해 주세요.");
             String input = Console.readLine();
             List<Integer> winningNumbers = new ArrayList<>();
-
             if(!Validator.checkLottoInputFormat(input)) continue; // 정규식을 따르는지 검사
             if(!Validator.insertAndCheckWinningNumbers(input, winningNumbers)) continue; // List에 원소를 집어넣으며 정수형태 검증
             if(!Validator.checkWinningNumbersIsSix(winningNumbers)) continue; // 여섯개의 번호만 입력했는지 검사
@@ -55,21 +54,14 @@ public class Application {
 
     // 실행
     public void run(){
-        // 구입한 로또의 개수
-        Integer numOfLotto = retNumOfLotto();
-        // 로또 생성
-        List<Lotto> lottos = Lotto.makeLottos(numOfLotto);
-        // 로또들 출력
-        Lotto.printLottos(numOfLotto, lottos);
-        // 당첨번호 입력
-        List<Integer> winningLotto = retWinningLotto();
-        // 보너스 번호 입력
-        Integer bonus = retBonusNumber();
-        // 각 당첨 통계 맵
-        HashMap<Reward, Integer> rewardMap = Reward.status(lottos, new TreeSet<>(winningLotto), bonus);
+        Integer numOfLotto = retNumOfLotto(); // 구입한 로또의 개수
+        List<Lotto> lottos = Lotto.makeLottos(numOfLotto); // 로또 생성
+        Lotto.printLottos(numOfLotto, lottos); // 로또들 출력
+        List<Integer> winningLotto = retWinningLotto(); // 당첨번호 입력
+        Integer bonus = retBonusNumber(); // 보너스 번호 입력
+        HashMap<Reward, Integer> rewardMap = Reward.status(lottos, new TreeSet<>(winningLotto), bonus); // 각 당첨 통계 맵
         Reward.printStatus(rewardMap);
-        // 상금 총합
-        Integer total = totalRewardMoney(rewardMap);
+        Integer total = totalRewardMoney(rewardMap);// 상금 총합
         double profitRate = (double) total / (numOfLotto * 1000) * 100;
         System.out.println("총 수익률은 " + String.format("%.1f", profitRate) + "%입니다.");
     }
